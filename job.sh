@@ -9,6 +9,8 @@ module load python/2.7.9
 
 cd "$TMPDIR"
 cp -r "${HOME}/projects/pydial" .
+cp -r ${HOME}/projects/pydial-stopos/*.sh .
+cp -r ${HOME}/projects/pydial-stopos/*.py .
 
 PYDIAL_BASE="${TMPDIR}/pydial/"
 

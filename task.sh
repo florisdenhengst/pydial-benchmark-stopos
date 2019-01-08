@@ -21,11 +21,13 @@ while [ "$STOPOS_RC" == "OK" ]; do
 		# the last item of the STOPOS_VALUE variable array contains the random seed
 		stdout_target="${log_base}-${a[-1]}-stdout"
 		stderr_target="${log_base}-${a[-1]}-stderr"
-		command="pushd $PYDIAL_BASE && $PYDIAL_COMMAND ${CONF_DIR}${log_base}.cfg --seed=${a[-1]} > $stdout_target 2> $stderr_target && popd"
+		command="pushd $PYDIAL_BASE && $PYDIAL_COMMAND ${CONF_DIR}${log_base}.cfg --seed=${a[-1]} > ${TMPDIR}/$stdout_target 2> ${TMPDIR}/$stderr_target && popd"
 		echo "$command"
 		$(eval $command)
 		stopos remove -p pydial-run
-		mv ${stdout_target} ${STDOUT_DIR}
-		mv ${stderr_target} ${STDERR_DIR}
+		cp ${TMPDIR}/${stdout_target} ${STDOUT_DIR}
+		cp ${TMPDIR}/${stderr_target} ${STDERR_DIR}
+		cp -r ${PYDIAL_BASE}_benchmarklogs/* ${HOME}/projects/pydial/_benchmarklogs/
+		cp -r ${PYDIAL_BASE}_benchmarkpolicies/* ${HOME}/projects/pydial/_benchmarkpolicies/
 	fi
 done

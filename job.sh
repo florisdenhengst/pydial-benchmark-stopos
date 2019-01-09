@@ -1,5 +1,5 @@
 #!/bin/bash
-#SBATCH -t 6:00:00
+#SBATCH -t 12:00:00
 #SBATCH -N 1
 #SBATCH --mail-user=florisdenhengst@gmail.com
 #SBATCH --mail-type=ALL
@@ -11,6 +11,8 @@ cd "$TMPDIR"
 cp -r "${HOME}/projects/pydial" .
 cp -r ${HOME}/projects/pydial-stopos/*.sh .
 cp -r ${HOME}/projects/pydial-stopos/*.py .
+rm -rf _benchmarklogs/*
+rm -rf _benchmarkpolicies/*
 
 PYDIAL_BASE="${TMPDIR}/pydial/"
 

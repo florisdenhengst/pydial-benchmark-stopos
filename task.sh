@@ -12,7 +12,8 @@ STDERR_DIR="${HOME}/projects/pydial-stopos/results/stderr/"
 
 
 STOPOS_RC="OK"
-stopos -p pydial-run next
+stopos -p pydial-run next --multi
+echo "STOPOS_RC: $STOPOS_RC"
 if [ "$STOPOS_RC" == "OK" ]; then
 	a=( $STOPOS_VALUE )
 	# create path to script
@@ -23,9 +24,9 @@ if [ "$STOPOS_RC" == "OK" ]; then
 	command="pushd $PYDIAL_BASE && $PYDIAL_COMMAND ${CONF_DIR}${log_base}.cfg --seed=${a[-1]} > ${TMPDIR}/$stdout_target 2> ${TMPDIR}/$stderr_target && popd"
 	echo "$command"
 	$(eval $command)
-	stopos remove -p pydial-run
 	cp ${TMPDIR}/${stdout_target} ${STDOUT_DIR}
 	cp ${TMPDIR}/${stderr_target} ${STDERR_DIR}
 	cp -r ${PYDIAL_BASE}_benchmarklogs/* ${HOME}/projects/pydial/_benchmarklogs/
 	cp -r ${PYDIAL_BASE}_benchmarkpolicies/* ${HOME}/projects/pydial/_benchmarkpolicies/
+	stopos remove -p pydial-run
 fi
